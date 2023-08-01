@@ -8,6 +8,8 @@ Requires Python >= 3.10.
 
 Do not use as library code. See security note below.
 
+> *Example 1: while-do*
+
 ![image](https://github.com/bjung801/grampy/assets/129518187/4232f66d-9d8a-4967-9118-16c950cabc0e)
 
 
@@ -187,3 +189,22 @@ applications. It also has no effect on the output of subprocesses.
 However, it is still a useful approach for many utility scripts.'*
 
 https://docs.python.org/3/library/contextlib.html
+
+--------------------------------------------------------------------------    
+
+### More examples
+
+> *Example 2: do-while*
+
+![image](https://github.com/bjung801/grampy/assets/129518187/f4ea3860-f9be-496f-b7e5-b2ad3b0177d2)
+
+> *Example 3: input*
+
+![image](https://github.com/bjung801/grampy/assets/129518187/3c9aa266-4d79-423d-88a2-5cff204b316d)
+
+> *Example 4: switch-case*
+
+![image](https://github.com/bjung801/grampy/assets/129518187/d202105f-2263-4eab-b0c6-8b53527a11e0)
+
+
+
