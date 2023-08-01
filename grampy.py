@@ -131,7 +131,7 @@ make_structogram(func: Callable[[], NoneType], tex_file_name: str = ':auto_gen:'
         Whether or not to perform a dry run and include its results in the
         Latex document. Not recommended for functions/structograms with
         interactive input (may cause QtConsole, Spyder to crash; execution
-        in other shells may be tricky)
+        in other shells may or may not work).
  
     verbose: bool
 
