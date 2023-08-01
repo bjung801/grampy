@@ -109,7 +109,7 @@ Then, input the generated .tex file into your Latex file:
 
 The main Latex document needs struktex: \usepackage{struktex}
 
-##### minimal example main Latex document
+> *minimal example main Latex document*
 
     \documentclass[a4paper]{article}
     \usepackage[T1]{fontenc}  % \textquotedbl - straight quotation marks
