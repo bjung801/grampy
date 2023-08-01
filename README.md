@@ -30,13 +30,13 @@ Do not use as library code. See security note below.
 ### DO-WHILE in structograms
 
 Python does not feature a do-while loop. However, 
-for Python while-loops of shape
+for Python while-loops of shape ...
 
     while True:
       ...
       if not cond: break
 
-a structogram will be generated of shape / semantics
+... a structogram will be generated of shape / semantics:
 
     DO
       ...
@@ -61,7 +61,8 @@ See example 2
 
 Python input statements
 
-     x = input(...), x = eval(input(...))
+     x = input(...)
+     x = eval(input(...))
 
 are transformed to Latex code
 
@@ -77,8 +78,8 @@ Multiple branches in structograms can be generated using the match-case
 feature of Python >= 3.10. 
 
 While Python's match-case offers powerful pattern matching in general, only
-simple case expressions are supported by grampy, e.g. similar to switch-case 
-in C++. Concretely, test expressions must be either literals/constants or the 
+simple case expressions are supported by grampy, similar, e.g., to switch-case 
+in C++/Java. Concretely, test expressions must be either literals/constants or the 
 wildcard pattern '_'.
 
     match <cond>:
@@ -104,10 +105,11 @@ See example 4
     make_structogram(fn42) # auto-generate filename -> structogram_fn42.tex
     # make_structogram(fn42, 'structogram.tex')  # explicit filename
 
-Then, input the generated .tex file into your Latex file:
-\input{structogram_fn42.tex}
+Then, include the generated .tex file into your main Latex file:
+`\input{structogram_fn42.tex}`
 
-The main Latex document needs struktex: \usepackage{struktex}
+The main Latex document needs struktex `\usepackage{struktex}` 
+and fontenc `\usepackage[T1]{fontenc}`
 
 > *minimal example main Latex document*
 
@@ -145,7 +147,7 @@ The main Latex document needs struktex: \usepackage{struktex}
         Whether or not to perform a dry run and include its results in the
         Latex document. Not recommended for functions/structograms with
         interactive input (may cause QtConsole, Spyder to crash; execution
-        in other shells may be tricky)
+        in other shells may or may not work).
  
     verbose: bool
 
@@ -198,13 +200,35 @@ https://docs.python.org/3/library/contextlib.html
 
 ![image](https://github.com/bjung801/grampy/assets/129518187/f4ea3860-f9be-496f-b7e5-b2ad3b0177d2)
 
+    % Output of structogram fn_do_while (6 lines)
+    % [01] 1 1
+    % [02] 2
+    % [03] 3
+    % [04] 5
+    % [05] 8
+    % [06] 13
+
 > *Example 3: input*
 
 ![image](https://github.com/bjung801/grampy/assets/129518187/3c9aa266-4d79-423d-88a2-5cff204b316d)
+
+
+*(Output disabled by option `dry_run=False`)*
+
+    % Output of structogram fn_input (0 lines)% Output of structogram fn_input (0 lines)
+
 
 > *Example 4: switch-case*
 
 ![image](https://github.com/bjung801/grampy/assets/129518187/d202105f-2263-4eab-b0c6-8b53527a11e0)
 
+    % Output of structogram fn_switch_case (7 lines)
+    % [01] n = 4
+    % [02] k = 4
+    % [03] n = 8
+    % [04] m = 3
+    % [05] n = 14
+    % [06] m = 7
+    % [07] n = 42
 
 
