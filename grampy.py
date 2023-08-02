@@ -194,7 +194,7 @@ def fn_while_do():
         b = a + b
         a = a - b
         c = c - 2
-        if (a < 0) and b <= 1:
+        if a < 0 and b <= 1:
             print(' a =', a, ' b =', b)
         else:
             b = b - 2
@@ -353,7 +353,7 @@ def _is_input_stmt(assign_node: ast.AST) -> Optional[str]:
     # assignment? Exactly one assignment?
     if (    not isinstance(assign_node, ast.Assign)
             or len(assign_node.targets) > 1
-    ):
+       ):
         return None
 
     var_name = assign_node.targets[0].id
@@ -361,7 +361,7 @@ def _is_input_stmt(assign_node: ast.AST) -> Optional[str]:
     # check that right hand side of the assignment is a function call
     if (    not isinstance(assign_node.value, ast.Call)
             or not isinstance(assign_node.value.func, ast.Name)
-    ):
+       ):
         return None
 
     # case 'x = input(...)'
@@ -369,8 +369,9 @@ def _is_input_stmt(assign_node: ast.AST) -> Optional[str]:
         return 'Input(' + var_name + ') \n'
     # case 'x = eval(input(...))'
     if assign_node.value.func.id == 'eval':
-        if ( not isinstance(assign_node.value.args[0], ast.Call) \
-             or not isinstance(assign_node.value.args[0].func, ast.Name) ):
+        if ( not isinstance(assign_node.value.args[0], ast.Call)
+             or not isinstance(assign_node.value.args[0].func, ast.Name)
+           ):
             return None
         if assign_node.value.args[0].func.id == 'input':
             return 'Input(' + var_name + ')'
@@ -530,7 +531,7 @@ def _(node: ast.Match, source: str, level=0):
             caselatex = f'{ {constvalue.value} }\n'
 
         else:
-            print(type(pattern))
+            # print(type(pattern))
             print('Match pattern is too complex! Please use a constant or "_"')
             return ''
 
@@ -706,7 +707,7 @@ def make_structogram(func: Callable[[], None],
             print("% No structogram output generated (dry_run=False)",
                   file=tex_file)
 
-    # +++++++++ write some infos to sys.stdout
+    # write some infos to sys.stdout
     if verbose:
         print('-' * 60)
         print(latex)
