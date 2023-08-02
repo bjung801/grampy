@@ -18,8 +18,9 @@ Then have grampy reverse engineer the structogram.
 Check if the structogram looks nice. If not, consider modifying the Python code. 
 E.g., long descriptive variable names may be advantageous in production Python code 
 whereas in structograms short names can be a better fit for the sometimes narrow boxes.
+You may also consider to modify the generated Latex file directly to adapt the structogram's layout.
 
-Do not include grampy in library code, unless removing dry run functionality. See security note below.
+Do not include grampy in library code, unless removing the dry run functionality. See security note below.
 
 > *Example 1: while-do*
 
