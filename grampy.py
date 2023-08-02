@@ -497,7 +497,7 @@ def _(node: ast.Match, source: str, level=0):
     # node.subject contains the test expression
     matchtest = ast.get_source_segment(source, node.subject)
     matchtest = _to_latex(matchtest)
-    print('MATCHTEST:', matchtest)
+    # print('MATCHTEST:', matchtest)
     num_cases = len(node.cases)
 
     box_height = 12  # height of the Latex box
