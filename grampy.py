@@ -12,7 +12,7 @@ Supported statements: while, if-else, assignments, print, pass, match-case
                       x = input(...), x = eval(input(...))
 
 Not supported: if-elif-else, while-else, for, def, return, class, ...
-               
+
 --------------------------------------------------------------------------
 
 # DO-WHILE in structograms
@@ -239,7 +239,8 @@ def fn_do_while():
 #
 
 def fn_input():
-    limit = eval(input("What is the upper limit?"))
+    limit = eval(
+        input("What is the upper limit?"))
     x = 1
     y = 1
     print(x, y)
@@ -448,8 +449,8 @@ def _(node: ast.While, source: str, level=0):
     rep = ast.get_source_segment(source, node.test)
 
     if _while_as_do_while(node, source):
-        print('-' * 40)
-        print("Generating structogram with DoWhile instead of While!")
+        # print('-' * 60)
+        # print("Generating structogram with DoWhile instead of While!")
         # Note: Struktex provides 'Repeat-Until'-markup
         #       which may be used for either repeat-until or do-while loops.
         #       Grampy's choice is the do-while semantic
@@ -681,30 +682,43 @@ def make_structogram(func: Callable[[], None],
         printoutput = _dry_run(func)
         lines = printoutput.split('\n')[:-1]
 
-    # +++++++++ output to the Latex file
+    # write Latex file
 
-    # Write the generated Latex code + dry runs results to the file
     with open(tex_file_name, 'w', encoding='utf-8') as tex_file:
+
+        # write Python code to Latex file (commented out in Latex)
         for line in source.split('\n'):  # source code of Python function
             print('% ' + line, file=tex_file)
-        print('\n', file=tex_file)  # Latex structogram
+        print('\n', file=tex_file)
+
+        # write Latex structogram
         print(latex, file=tex_file)
         print('\n', file=tex_file)
-        print("% Output of structogram", func.__name__, end=' ', file=tex_file)
-        print(f'({len(lines)} lines)', file=tex_file)
-        for line_no, line in enumerate(lines):
-            print(f'% [{line_no+1:02}]', line, file=tex_file)
+
+        # write dry-run results (commented out in Latex)
+        if dry_run:
+            print("% Output of structogram", func.__name__,
+                  end=' ', file=tex_file)
+            print(f'({len(lines)} lines)', file=tex_file)
+            for line_no, line in enumerate(lines):
+                print(f'% [{line_no+1:02}]', line, file=tex_file)
+        else:
+            print("% No structogram output generated (dry_run=False)",
+                  file=tex_file)
 
     # +++++++++ write some infos to sys.stdout
     if verbose:
-        print('-' * 40)
+        print('-' * 60)
         print(latex)
-        print('-' * 40)
-        print("Output of function/structogram", func.__name__, end=' ')
-        print(f'({len(lines)} lines)')
-        for line in lines:
-            print(line)
-        print('-' * 40)
+        print('-' * 60)
+        if dry_run:
+            print("Output of function/structogram", func.__name__, end=' ')
+            print(f'({len(lines)} lines)')
+            for line in lines:
+                print(line)
+        else:
+            print("No structogram output generated (dry_run=False)")
+        print('-' * 60)
 
     print('Wrote', tex_file_name)
 
@@ -714,5 +728,6 @@ if __name__ == '__main__':
     make_structogram(fn_do_while)
     make_structogram(fn_switch_case)
 
-    fn = fn_input  # function defined above (interactive input -> no dry run)
+    # function with interactive input -> no dry run)
+    fn = fn_input
     make_structogram(fn, dry_run=False, verbose=True)
