@@ -199,7 +199,7 @@ To disable dry runs:
 The dry run functionality is implemented by temporally redirecting sys.stdout, 
 using `contextlib.redirect_stdout(new_target)`
 
-From the Python doc:
+From the Python documentation:
 
 *'Note that the global side effect on sys.stdout means that this context
 manager is not suitable for use in library code and most threaded
