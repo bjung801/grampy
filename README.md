@@ -1,23 +1,30 @@
 # grampy
 Reverse engineer Latex structogram code from a Python function definition.
 
-Latex conventions according to struktex package
+Latex markup according to struktex package
 https://ctan.org/pkg/struktex
 
 Requires Python >= 3.10.
 
 Limitations: Grampy can generate structograms from reasonably simple Python code. 
 Like other programming languages, Python offers many features that cannot be represented in structograms 
-(e.g. elements of object-oriented, functional and aspect-oriented programming; 
+(e.g., elements of object-oriented, functional and aspect-oriented programming; 
 or simply long code that does not fit into one diagram).
 Grampy is therefore not intended to and cannot reverse engineer structograms from arbitrary Python programs. 
 Use with having the resulting structogram's complexity in mind.
 
-Do not use in library code. See security note below.
+Recommended use: Write your Python function first. Tweak and test until the desired behavior is achieved. 
+Then have grampy reverse engineer the structogram. 
+Check if the structogram looks nice. If not, consider modifying the Python code. 
+E.g., long descriptive variable names may be advantageous in production Python code 
+whereas in structograms short names can be a better fit for the sometimes narrow boxes.
+
+Do not include grampy in library code, unless removing dry run functionality. See security note below.
 
 > *Example 1: while-do*
 
-![image](https://github.com/bjung801/grampy/assets/129518187/4232f66d-9d8a-4967-9118-16c950cabc0e)
+![image](https://github.com/bjung801/grampy/assets/129518187/376531b7-1441-4886-b8f3-89c54b7029d2)
+
 
 
 
@@ -111,6 +118,7 @@ See example 4
         ...
 
     make_structogram(fn42) # auto-generate filename -> structogram_fn42.tex
+    
     # make_structogram(fn42, 'structogram.tex')  # explicit filename
 
 Then, include the generated .tex file into your main Latex file:
@@ -189,7 +197,7 @@ To disable dry runs:
 ### Dry run - security issue in library code
 
 The dry run functionality is implemented by temporally redirecting sys.stdout, 
-using contextlib.redirect_stdout(new_target)
+using `contextlib.redirect_stdout(new_target)`
 
 From the Python doc:
 
