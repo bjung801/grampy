@@ -6,7 +6,14 @@ https://ctan.org/pkg/struktex
 
 Requires Python >= 3.10.
 
-Do not use as library code. See security note below.
+Limitations: Grampy can generate structograms from reasonably simple Python code. 
+Like other programming languages, Python offers many features that cannot be represented in structograms 
+(e.g. elements of object-oriented, functional and aspect-oriented programming; 
+or simply long code that does not fit into one diagram).
+Grampy is therefore not intended to and cannot reverse engineer structograms from arbitrary Python programs. 
+Use with having the resulting structogram's complexity in mind.
+
+Do not use in library code. See security note below.
 
 > *Example 1: while-do*
 
@@ -18,12 +25,13 @@ Do not use as library code. See security note below.
 
 ##### Supported Python statements: 
 
-    while, if-else, assignments, print, pass, match-case
+    while, if-else, simple assignments, print, pass, match-case
     x = input(...), x = eval(input(...))
 
 ##### Not supported: 
 
-    if-elif-else, while-else, for, def, return, class, ...
+    if-elif-else, while-else, for, def, return
+    class, import, assert, try-catch, with, async, type annotations, decorators, ...
                
 --------------------------------------------------------------------------
 
@@ -208,14 +216,12 @@ https://docs.python.org/3/library/contextlib.html
     % [05] 8
     % [06] 13
 
+
 > *Example 3: input*
 
 ![image](https://github.com/bjung801/grampy/assets/129518187/3c9aa266-4d79-423d-88a2-5cff204b316d)
 
-
-*(Output disabled by option `dry_run=False`)*
-
-    % Output of structogram fn_input (0 lines)% Output of structogram fn_input (0 lines)
+    % No structogram output generated (dry_run=False)
 
 
 > *Example 4: switch-case*
