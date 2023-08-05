@@ -17,9 +17,10 @@ Recommended use: Write your Python function first. Tweak and test until the desi
 Then have grampy reverse engineer the structogram. 
 Check if the structogram looks nice. If not, consider modifying the Python code. 
 E.g., long descriptive variable names may be advantageous in production Python code 
-whereas in structograms short names can be a better fit for the sometimes narrow boxes.
+whereas in structograms short names may better fit the sometimes narrow boxes.
+You may also consider to modify the generated Latex file directly to adapt the structogram's layout.
 
-Do not include grampy in library code, unless removing dry run functionality. See security note below.
+Do not include grampy in library code, unless removing the dry run functionality. See security note below.
 
 > *Example 1: while-do*
 
@@ -65,7 +66,7 @@ for Python while-loops of shape ...
     ¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯
 
 Note that the Struktex Latex package provides a repeat-until markup which
-is used with the different do-while semantics here.
+is used here with the different do-while semantics.
 
 See example 2
 
@@ -92,7 +93,7 @@ See example 3
 Multiple branches in structograms can be generated using the match-case 
 feature of Python >= 3.10. 
 
-While Python's match-case offers powerful pattern matching in general, only
+While Python's match-case offers powerful pattern matching, only
 simple case expressions are supported by grampy, similar, e.g., to switch-case 
 in C++/Java. Concretely, test expressions must be either literals/constants or the 
 wildcard pattern '_'.
@@ -122,7 +123,7 @@ See example 4
     # make_structogram(fn42, 'structogram.tex')  # explicit filename
 
 Then, include the generated .tex file into your main Latex file:
-`\input{structogram_fn42.tex}`
+`\input{structogram_fn42}`
 
 The main Latex document needs struktex `\usepackage{struktex}` 
 and fontenc `\usepackage[T1]{fontenc}`
@@ -199,7 +200,7 @@ To disable dry runs:
 The dry run functionality is implemented by temporally redirecting sys.stdout, 
 using `contextlib.redirect_stdout(new_target)`
 
-From the Python doc:
+From the Python documentation:
 
 *'Note that the global side effect on sys.stdout means that this context
 manager is not suitable for use in library code and most threaded
