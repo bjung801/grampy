@@ -112,30 +112,31 @@ The main Latex document needs struktex: \usepackage{struktex}
 
 Help on function make_structogram in module grampy:
 
-make_structogram(func: Callable[[], NoneType], tex_file_name: str = ':auto_gen:'
-, dry_run=True, verbose=True) -> None
+make_structogram(func: Callable[[], NoneType],
+                 tex_file_name: str = ':auto_gen:',
+                 dry_run=True,
+                 verbose=True) -> None
     Generates a Latex structogram for the function passed as arg.
-    
+
     Parameters:
     -----------
-    
+
     func: function
         A Latex structogram will be generated for func's body.
         func has no arguments and returns None.
-    
+
     tex_file_name: str
         Output file name. If it does not end with '.tex',
         a suitable file name will be auto-generated.
-    
+
     dry_run: bool
         Whether or not to perform a dry run and include its results in the
-        Latex document. Not recommended for functions/structograms with
-        interactive input (may cause QtConsole, Spyder to crash; execution
-        in other shells may or may not work).
- 
+        Latex document. Dry run results are commented out in the Latex
+        source file, so that they cannot be seen in the compilde document.
+
     verbose: bool
 
-        
+
     Returns:
     --------
         None
@@ -148,17 +149,16 @@ The generated Latex file also contains the output resulting from a dry run
 execution of the structogram. This output is commented out in the Latex file,
 so that it can only be seen in the Latex source but not the compiled document.
 
-Dry runs of structograms with interactive input may not be possible in 
-certain Python runtime environments (e.g., Qt console, Spyder).
-To disable dry runs:
+Dry runs of structograms with interactive input may not work in
+some Python runtime environments. In this case, disable dry runs:
 
     make_structogram(fn, dry_run=False)
 
---------------------------------------------------------------------------    
+--------------------------------------------------------------------------
 
 # Dry run - security issue in library code
 
-The dry run functionality is implemented by temporally redirecting sys.stdout, 
+The dry run functionality is implemented by temporally redirecting sys.stdout,
 using contextlib.redirect_stdout(new_target)
 
 From the Python doc:
@@ -232,15 +232,17 @@ def fn_do_while():
 # example 3: input, structogram with 'do ... while' loop
 #
 # Note: dry runs of function/structograms with interactive input may not work
-# in every environment (e.g., QtConsole, Spyder),
-# and may be a bit tricky in others.
+# in every Python environment. In this case, disable dry run:
 #
-# # make_structogram(fn_input)
-#
+# >>> make_structogram(fn_input)
+# or
+# >>> make_structogram(fn_input, dry_run=False)
+
 
 def fn_input():
     limit = eval(
-        input("What is the upper limit?"))
+        input("What is the upper limit? "))
+    print('limit =', limit)
     x = 1
     y = 1
     print(x, y)
@@ -656,9 +658,10 @@ def make_structogram(func: Callable[[], None],
 
     dry_run: bool
         Whether or not to perform a dry run and include its results in the
-        Latex document. Not recommended for functions/structograms with
-        interactive input (may cause QtConsole, Spyder to crash; execution
-        in other shells may be tricky)
+        Latex document. Dry run results are commented out in the Latex
+        source file, so that they are not shown in the compilde document.
+        Dry run functionality may not work in some Python shells for
+        structograms/functions with interactive input.
 
     verbose: bool
 
@@ -728,7 +731,8 @@ if __name__ == '__main__':
     make_structogram(fn_while_do)  # function fn_while_do defined above
     make_structogram(fn_do_while)
     make_structogram(fn_switch_case)
+    # make_structogram(fn_input)
 
-    # function with interactive input -> no dry run)
-    fn = fn_input
-    make_structogram(fn, dry_run=False, verbose=True)
+    # dry run functionality may not work in some environment for
+    # functions with interactive input -> disable dry run
+    make_structogram(fn_input, dry_run=False, verbose=True)
