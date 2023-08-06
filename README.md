@@ -1,5 +1,5 @@
 # grampy
-Reverse engineer Latex structogram code from a Python function definition.
+Reverse engineer Latex structograms (a.ka. Nassi–Shneiderman diagrams) from a Python function definition.
 
 Latex markup according to struktex package
 https://ctan.org/pkg/struktex
