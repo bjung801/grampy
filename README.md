@@ -1,5 +1,5 @@
 # grampy
-Reverse engineer Latex structogram code from a Python function definition.
+Reverse engineer Latex structograms (a.k.a. Nassi–Shneiderman diagrams) from a Python function definition.
 
 Latex markup according to struktex package
 https://ctan.org/pkg/struktex
@@ -162,10 +162,11 @@ and fontenc `\usepackage[T1]{fontenc}`
     
     dry_run: bool
         Whether or not to perform a dry run and include its results in the
-        Latex document. Not recommended for functions/structograms with
-        interactive input (may cause QtConsole, Spyder to crash; execution
-        in other shells may or may not work).
- 
+        Latex document. Dry run results are commented out in the Latex
+        source file, so that they are not shown in the compiled document.
+        Dry run functionality may not work in some Python shells for
+        structograms/functions with interactive input.
+        
     verbose: bool
 
         
@@ -187,9 +188,10 @@ so that it can only be seen in the Latex source but not the compiled document.
     % [03]  a = 1  c = -3
     % [04]  c = -3
 
-Dry runs of structograms with interactive input may not be possible in 
-certain Python runtime environments (e.g., Qt console, Spyder).
-To disable dry runs:
+Dry runs of structograms with interactive input may not work in 
+some Python runtime environments, particularly when multiple
+structograms are generated.
+In this case, disable dry runs:
 
     make_structogram(fn, dry_run=False)
 
@@ -228,10 +230,21 @@ https://docs.python.org/3/library/contextlib.html
 
 > *Example 3: input*
 
-![image](https://github.com/bjung801/grampy/assets/129518187/3c9aa266-4d79-423d-88a2-5cff204b316d)
+![image](https://github.com/bjung801/grampy/assets/129518187/dbeb456a-f199-4687-81eb-b49ec52c9ea0)
+
 
     % No structogram output generated (dry_run=False)
 
+or with `dry_run=True` (default)
+
+    % Output of structogram fn_input (7 lines)
+    % [01] limit = 13
+    % [02] 1 1
+    % [03] 2
+    % [04] 3
+    % [05] 5
+    % [06] 8
+    % [07] 13
 
 > *Example 4: switch-case*
 
